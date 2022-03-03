@@ -19,29 +19,31 @@ const amountEuro = {
 function change(price, paidAmount) {
   let change = paidAmount - price;
   let prices = Object.values(amountEuro);
+  let givenChange = [];
 
   console.log("------------------------------------------");
   console.log(
-    "Price:€" + price,
+    "Price: €" + price,
     "// Paid amount: €" + paidAmount,
-    "// Change:"
+    "// Change: €" + change
   );
 
   if (paidAmount < price) {
-    console.log("The paid amount is not enough!");
+    return "The paid amount is not enough!";
   } else
     for (let value in prices) {
       if (change >= prices[value]) {
         let quantity = Math.floor(change / prices[value]);
         change = (change % prices[value]).toFixed(2);
 
-        console.log(quantity + " x €" + prices[value]);
+        givenChange.push(quantity + " x €" + prices[value]);
       }
     }
+  return Object.assign({ givenChange });
 }
 
-change(3.75, 50);
+console.log(change(3.75, 50));
 
-change(4.5, 20);
+console.log(change(4.5, 20));
 
-change(4, 3);
+console.log(change(4, 3));
